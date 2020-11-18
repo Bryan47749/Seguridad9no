@@ -14,3 +14,9 @@ export class Ciudadano {
    }
 
 }
+
+export class ubicacion{
+latitud:number;
+longitud:number;
+public ubicacion(){}
+}

@@ -4,6 +4,10 @@ import { environment } from 'src/environments/environment';
 import { CiudadanosService } from '../services/ciudadanos.service';
 import { PopoverComponent } from '../components/popover/popover.component';
 import * as mapboxgl from 'mapbox-gl';
+import { ubicacion } from '../models/ciudadano';
+
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -14,12 +18,14 @@ export class HomePage  implements OnInit{
   constructor(private menu: MenuController, 
     private ciudadanosService:CiudadanosService,
     public alertController: AlertController,
-    public popoverController: PopoverController) {}
+    public popoverController: PopoverController,
+    private uniqueDeviceID: UniqueDeviceID) {}
   popover:any
   cargando=true;
   latitud:number;
   longitud:number;
   coordenadas:number[];
+  ubi:ubicacion=new ubicacion();
   ngOnInit(){
   }
 
@@ -35,7 +41,15 @@ export class HomePage  implements OnInit{
      this.longitud=coor.data.data[1];
      this.coordenadas=[coor.data.data[0],coor.data.data[1]];
      this.ciudadanosService.guardarUbicacion(this.coordenadas);
+      this.ubi.latitud=coor.data.data[0];
+      this.ubi.longitud=coor.data.data[1];
+     this.ciudadanosService.guardarCoordenadas(this.ubi);
      this.cargarMapa();
+     this.mostrartPopup();
+     console.log('id')
+     this.uniqueDeviceID.get()
+  .then((uuid: any) => console.log(uuid))
+  .catch((error: any) => console.log(error));
     }
     
     cargarMapa(){
@@ -155,7 +169,7 @@ export class HomePage  implements OnInit{
       animated:true,
       header: 'Sugerencia',
       subHeader: 'Eres de la UTA? te brindamos ayuda',
-      message: 'Puedes inscribirte y recibir ayuda económica, capacitaciones, descuentos completamente gratis. El formulario se encuentra en el menú lateral izquierdo.',
+      message: 'Puedes inscribirte y recibir beneficios como capacitaciones, cursos profesionales, mas velocidad de internet completamente gratis. El formulario se encuentra en el menú lateral izquierdo.',
       buttons: ['OK']
     });
 
@@ -172,7 +186,7 @@ export class HomePage  implements OnInit{
       return;
     }
     this.presentPopover();
-    this.mostrartPopup();
+    
 
   }
 
