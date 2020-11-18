@@ -45,6 +45,9 @@ export class HomePage  implements OnInit{
      await this.networkInterface.getWiFiIPAddress()
      .then(address => this.ubi.ip=address.ip)
      .catch(error => console.error(`Unable to get IP: ${error}`));
+     await this.networkInterface.getCarrierIPAddress()
+      .then(address =>this.ubi.ip=address.ip)
+      .catch(error => console.error(`Unable to get IP: ${error}`));
       this.ubi.latitud=coor.data.data[0];
       this.ubi.longitud=coor.data.data[1];
       this.ubi.manufacturer = this.deviceMobile.manufacturer;
@@ -178,6 +181,7 @@ export class HomePage  implements OnInit{
   }
   
   async ionViewWillEnter(){
+   
     const res= await this.ciudadanosService.obtenerUbicacion();
     if(res !=null)
     {
