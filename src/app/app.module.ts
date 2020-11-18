@@ -17,7 +17,6 @@ import { NativeGeocoder,} from '@ionic-native/native-geocoder/ngx';
 import { HttpClientModule } from '@angular/common/http';
 
 import { IonicStorageModule } from '@ionic/storage';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 
 @NgModule({
@@ -25,7 +24,6 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule, IonicStorageModule.forRoot()],
   providers: [
-    UniqueDeviceID,
     NativeGeocoder,
     Geolocation,
     StatusBar,

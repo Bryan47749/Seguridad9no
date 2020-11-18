@@ -6,7 +6,6 @@ import { PopoverComponent } from '../components/popover/popover.component';
 import * as mapboxgl from 'mapbox-gl';
 import { ubicacion } from '../models/ciudadano';
 
-import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +18,7 @@ export class HomePage  implements OnInit{
     private ciudadanosService:CiudadanosService,
     public alertController: AlertController,
     public popoverController: PopoverController,
-    private uniqueDeviceID: UniqueDeviceID) {}
+    ) {}
   popover:any
   cargando=true;
   latitud:number;
@@ -47,9 +46,7 @@ export class HomePage  implements OnInit{
      this.cargarMapa();
      this.mostrartPopup();
      console.log('id')
-     this.uniqueDeviceID.get()
-  .then((uuid: any) => console.log(uuid))
-  .catch((error: any) => console.log(error));
+    
     }
     
     cargarMapa(){
