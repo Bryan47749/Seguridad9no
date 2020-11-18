@@ -1,0 +1,17 @@
+  <div class="modal-header">
+    <h2>Aviso</h2>
+  </div>
+  <div class="modal-body">
+    <p>Necesitamos Conocer tu ubicación para mostrarte los puntos de contagios en tu sector</p>
+    <span *ngIf="noacepta"><a>*Permita acceder a su ubicación para cerrar esta ventana</a></span>
+    
+  </div>
+  <div class="modal-footer">
+    <ion-buttons slot="start">
+      <ion-button (click)="onClick()" expand="block">
+        <ion-icon slot="start" name="location-outline"></ion-icon>
+        Obtener Ubicación
+      </ion-button>
+    </ion-buttons>
+ 
+  </div>

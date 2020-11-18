@@ -1,3 +1,19 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header>
+      <ion-toolbar color="danger">
+        <ion-title>Menú</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item routerLink="/home" ><ion-icon slot="start" name="map-outline"></ion-icon>Mapa</ion-item>
+          <ion-item routerLink="/formulario"><ion-icon slot="start" name="cash-outline"></ion-icon>Beneficios de la UTA</ion-item>
+        </ion-menu-toggle>
+        
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

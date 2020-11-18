@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  mapboxKey: 'pk.eyJ1IjoiaWFuY3BjYyIsImEiOiJja2Q2emJydDEwYjNjMnhsZWpzdGFzMTZlIn0.RjfbaMOR6YYz_u_nSIhUbQ',
+  urlCiudadano:'https://serviceseguridad.herokuapp.com/usuarios'
 };
 
 /*

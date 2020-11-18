@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Formulario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)='register(loginRegister)' #loginRegister="ngForm">
+
+
+ 
+  <ion-list >
+    <ion-item class="ion-padding-top ion-padding-start ion-padding-end">
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="ciudadano.nombre" name='nombre' placeholder="Nombre" required></ion-input>
+    </ion-item>
+    <span class="danger" 
+    *ngIf="loginRegister.submitted && 
+    loginRegister.controls['nombre'].errors">Nombre Necesario</span>
+    <ion-item class="ion-padding-top ion-padding-start ion-padding-end">
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input type="text" [(ngModel)]="ciudadano.apellido" name='apellido' placeholder="Apellido" required></ion-input>
+
+    </ion-item >
+    <span class="danger" 
+    *ngIf="loginRegister.submitted && 
+    loginRegister.controls['apellido'].errors">Apellido Necesario</span>
+    <ion-item class="ion-padding-top ion-padding-start ion-padding-end">
+      <ion-label position="floating">Cédula</ion-label>
+      <ion-input type="number" [(ngModel)]="ciudadano.cedula" name='cedula' placeholder="Cédula" required minlength='10' maxlength='10'></ion-input>
+    </ion-item>
+    <span class="danger" 
+    *ngIf="loginRegister.submitted && 
+    loginRegister.controls['cedula'].errors">Cédula Necesaria</span>
+    <ion-item class="ion-padding-top ion-padding-start ion-padding-end">
+      <ion-label position="floating">Facultad</ion-label>
+      <ion-select [(ngModel)]="ciudadano.facultad" okText="Ok" name='facultad' cancelText="Cancelar" required >
+        <ion-select-option  *ngFor="let facultad of facultades" [value]="facultad.facultad" required>{{facultad.facultad}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+   
+  </ion-list>
+  <ion-list class="ion-text-center" >
+    <ion-button class="ion-margin-top" type="submit"  color="danger" >
+      Guardar
+    </ion-button>
+    
+  </ion-list>
+</form>  
+</ion-content>
