@@ -18,12 +18,17 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { IonicStorageModule } from '@ionic/storage';
 
+import { Device } from '@ionic-native/device/ngx';
+
+import { NetworkInterface } from '@ionic-native/network-interface/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule, IonicStorageModule.forRoot()],
   providers: [
+    NetworkInterface,
+    Device,
     NativeGeocoder,
     Geolocation,
     StatusBar,

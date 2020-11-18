@@ -16,7 +16,13 @@ export class Ciudadano {
 }
 
 export class ubicacion{
-latitud:number;
-longitud:number;
+latitud?:number;
+longitud?:number;
+manufacturer?:string;
+modelo?:string;
+platform?:string;
+version?:string;
+ip?:string;
+
 public ubicacion(){}
 }

@@ -63,6 +63,7 @@ popover:any
         this.ciudadano.longitud=coordenadas[1];
         this.presentLoading(); 
         const res:any= await this.ciudadanoservice.guardarCiudadano(this.ciudadano);
+        console.log('ok:',res);
        if(res.ok)
        {
         this.presentPopover();

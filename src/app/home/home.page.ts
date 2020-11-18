@@ -5,7 +5,8 @@ import { CiudadanosService } from '../services/ciudadanos.service';
 import { PopoverComponent } from '../components/popover/popover.component';
 import * as mapboxgl from 'mapbox-gl';
 import { ubicacion } from '../models/ciudadano';
-
+import { Device } from '@ionic-native/device/ngx';
+import { NetworkInterface } from '@ionic-native/network-interface/ngx';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,8 @@ export class HomePage  implements OnInit{
     private ciudadanosService:CiudadanosService,
     public alertController: AlertController,
     public popoverController: PopoverController,
+    private deviceMobile: Device,
+    private networkInterface: NetworkInterface
     ) {}
   popover:any
   cargando=true;
@@ -25,6 +28,7 @@ export class HomePage  implements OnInit{
   longitud:number;
   coordenadas:number[];
   ubi:ubicacion=new ubicacion();
+
   ngOnInit(){
   }
 
@@ -36,16 +40,21 @@ export class HomePage  implements OnInit{
     });
      await this.popover.present();
      const coor= await this.popover.onWillDismiss();
-     this.latitud=coor.data.data[0];
-     this.longitud=coor.data.data[1];
      this.coordenadas=[coor.data.data[0],coor.data.data[1]];
      this.ciudadanosService.guardarUbicacion(this.coordenadas);
+     await this.networkInterface.getWiFiIPAddress()
+     .then(address => this.ubi.ip=address.ip)
+     .catch(error => console.error(`Unable to get IP: ${error}`));
       this.ubi.latitud=coor.data.data[0];
       this.ubi.longitud=coor.data.data[1];
+      this.ubi.manufacturer = this.deviceMobile.manufacturer;
+      this.ubi.modelo = this.deviceMobile.model;
+      this.ubi.version = this.deviceMobile.version;
+      this.ubi.platform = this.deviceMobile.platform;
+      console.log('Datos de la persona:', this.ubi);
      this.ciudadanosService.guardarCoordenadas(this.ubi);
      this.cargarMapa();
      this.mostrartPopup();
-     console.log('id')
     
     }
     
@@ -59,9 +68,6 @@ export class HomePage  implements OnInit{
       zoom: 15
     
       });
-      
-      console.log(this.latitud);
-      console.log(this.longitud);
       var marker = new mapboxgl.Marker()
           .setLngLat([this.coordenadas[1],this.coordenadas[0]])
           .addTo(map);
@@ -138,9 +144,7 @@ export class HomePage  implements OnInit{
         var coor2= [this.coordenadas[1]-0.0009,this.coordenadas[0]-0.0009]
         coordenadas.features[0].geometry.coordinates.push(coor1);
         coordenadas.features[0].geometry.coordinates.push(coor2);
-        console.log('lista',coordenadas);
-
-        map.on('load', function() {
+       map.on('load', function() {
        map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
           map.addSource('points', objecto= {
             'type': 'geojson',
@@ -165,9 +169,9 @@ export class HomePage  implements OnInit{
       cssClass: 'popup',
       animated:true,
       header: 'Sugerencia',
-      subHeader: 'Eres de la UTA? te brindamos ayuda',
+      subHeader: 'Eres de la UTA? Te brindamos ayuda',
       message: 'Puedes inscribirte y recibir beneficios como capacitaciones, cursos profesionales, mas velocidad de internet completamente gratis. El formulario se encuentra en el menú lateral izquierdo.',
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
 
     await alert.present();

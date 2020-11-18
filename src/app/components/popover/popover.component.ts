@@ -14,7 +14,7 @@ export class PopoverComponent implements OnInit {
   constructor(private popoverCtrl:PopoverController,
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
-    
+   
     ) { }
    options = {
     enableHighAccuracy: true, 
